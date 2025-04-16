@@ -1,4 +1,4 @@
-# chatbot_app.py
+
 
 import nltk
 import string
@@ -7,8 +7,8 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 
-# === Load and Read the Text File ===
-file_path = "MUDETE FACTORY TEA GROWERS SAVINGS.txt"  # File must be in the same folder
+# Load and Read the Text File 
+file_path = "MUDETE FACTORY TEA GROWERS SAVINGS.txt"  
 
 try:
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -17,10 +17,10 @@ except FileNotFoundError:
     st.error(f"❌ File not found: {file_path}")
     st.stop()
 
-# === Tokenize the Text into Sentences ===
+#  Tokenize the Text into Sentences
 sentences = sent_tokenize(raw_text)
 
-# === Preprocessing Function ===
+#Preprocessing Function
 def preprocess(text):
     lemmatizer = WordNetLemmatizer()
     words = word_tokenize(text)
@@ -31,10 +31,10 @@ def preprocess(text):
     ]
     return cleaned_words
 
-# === Preprocess Each Sentence in the Corpus ===
+#Preprocess Each Sentence in the Corpus 
 corpus = [preprocess(sentence) for sentence in sentences]
 
-# === Find the Most Relevant Sentence Using Jaccard Similarity ===
+# Find the Most Relevant Sentence Using Jaccard Similarity 
 def get_most_relevant_sentence(query):
     query_words = preprocess(query)
     max_similarity = 0
@@ -48,11 +48,11 @@ def get_most_relevant_sentence(query):
 
     return best_match if best_match else "Sorry, I couldn't find anything relevant. Try rephrasing your question."
 
-# === Chatbot Logic ===
+
 def chatbot(question):
     return get_most_relevant_sentence(question)
 
-# === Streamlit Web Interface ===
+
 def main():
     st.set_page_config(page_title="Mudete SACCO Chatbot")
     st.title("🤝 Mudete SACCO Chatbot")
@@ -64,6 +64,6 @@ def main():
         response = chatbot(user_input)
         st.markdown(f"**Chatbot:** {response}")
 
-# === Run the Streamlit App ===
+# Run the Streamlit App
 if __name__ == "__main__":
     main()
