@@ -23,11 +23,17 @@ To become a leading provider of financial services across Kenya.
 To economically empower our clients by mobilizing resources and offering quality, affordable, and competitive financial solutions.
 
 
-🔷 Premium Services
-	BOSA Loans
-	FOSA Loan
+🔷 BOSA Loans
+BOSA (Back Office Service Activity) Loans are long-term loans typically repaid through check-off systems or deposit-based deductions. These loans are ideal for investments, education, and emergencies.
 
-✅ BOSA Loans
+The following BOSA loan products are available:
+- School Fees Loan
+- Emergency Loan
+- Development Loan
+- Refinance Loan
+- Investment Loan
+- Micro-Finance Loan
+
 
 1. School Fees Loan:  
 A loan specifically designed to help members cover school-related expenses at all education levels.
@@ -53,7 +59,15 @@ Targeted toward business owners or entrepreneurs, this loan is meant for purchas
 Small loans offered to organized groups or cooperatives to fund income-generating activities such as dairy farming, small-scale trade, or agriculture.
 
 
-✅ FOSA Loans
+🔷 FOSA Loans
+FOSA (Front Office Service Activity) Loans are short-term loans tied to a member's salary or income deposited into their FOSA account. These loans address urgent and day-to-day financial needs.
+
+Available FOSA loan products:
+- Salary Advance
+- Crop Advance
+- Special Advance
+- FOSA Loan
+
 
 1. Salary Advance:  
 A short-term loan for salaried members to handle emergency expenses.
@@ -71,7 +85,19 @@ Designed to assist with operational cash needs like stock replenishment or day-t
 Given to members with regular income but low deposits. It helps bridge financial gaps based on salary flow.
 
 
-🔷 Our Products
+🔷 SACCO Products
+
+
+MUFATE G SACCO offers various savings products tailored to individuals, businesses, and groups.
+
+The products offered include:
+- Savings Account
+- Fixed Deposit Account
+- Children Account
+- Microfinance Account
+- Corporate Account
+- Benevolent Fund
+- Christmas Account
 
 
 1. Savings Account:  

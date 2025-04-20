@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # === Load and Read the Text File ===
-file_path = "MUFATE_SACCO_CLEANED_FOR_CHATBOT.txt"
+file_path = "MUFATE_SACCO_CLEANED_RESTRUCTURED.txt"
 
 try:
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -60,12 +60,13 @@ def get_most_relevant_chunk(query):
     query_tfidf = vectorizer.transform([query])
     similarity_scores = cosine_similarity(query_tfidf, tfidf_matrix)[0]
 
-    # Boost chunks that contain the exact query phrase (case-insensitive)
+    # Boost score if query phrase is in the title of a chunk
     for i, chunk in enumerate(chunks):
-        if query.lower().strip(':') in chunk.lower():
-            similarity_scores[i] += 0.5  # Boost match score
+        title_line = chunk.split('\n')[0]  # get heading/title only
+        if query.lower().strip(':') in title_line.lower():
+            similarity_scores[i] += 0.5  # significant boost
 
-    # Pick the highest scoring chunk
+    # Pick the best scoring chunk
     top_index = similarity_scores.argmax()
     top_score = similarity_scores[top_index]
 
@@ -81,7 +82,7 @@ def chatbot(question):
 # === Streamlit Web UI ===
 def main():
     st.set_page_config(page_title="Mudete SACCO Chatbot")
-    st.title("🤝 Mudete SACCO Chatbot")
+    st.title(" Mudete SACCO Chatbot")
     st.markdown("Ask me anything about **Mudete SACCO** – loans, savings, membership, mobile banking, etc.")
 
     user_input = st.text_input("You:")
