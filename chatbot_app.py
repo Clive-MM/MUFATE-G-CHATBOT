@@ -63,7 +63,7 @@ corpus = [preprocess(chunk) for chunk in chunks]
 vectorizer = TfidfVectorizer(stop_words='english')
 tfidf_matrix = vectorizer.fit_transform(chunks)
 
-# === New Function to Match User Query Using Cosine Similarity ===
+# === Match User Query Using Cosine Similarity ===
 def get_most_relevant_chunk(query):
     query_tfidf = vectorizer.transform([query])
     similarity_scores = cosine_similarity(query_tfidf, tfidf_matrix)[0]
@@ -88,9 +88,9 @@ def chatbot(question):
 
 # === Streamlit Web UI ===
 def main():
-    st.set_page_config(page_title="Mudete SACCO Chatbot")
-    st.title(" Mudete SACCO Chatbot")
-    st.markdown("Ask me anything about **Mudete SACCO** – loans, savings, membership, mobile banking, etc.")
+    st.set_page_config(page_title="MUFATE G SACCO Chatbot")
+    st.title(" MUFATE G SACCO Chatbot")
+    st.markdown("Ask me anything about **MUFATE G SACCO** – loans, savings, membership, mobile banking, etc.")
 
     user_input = st.text_input("You:")
 
