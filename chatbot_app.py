@@ -1,11 +1,19 @@
 import nltk
 import string
 import streamlit as st
+import spacy
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
+# === Load spaCy model for NER ===
+nlp = spacy.load("en_core_web_sm")
+
+def extract_entities(text):
+    doc = nlp(text)
+    return [(ent.text, ent.label_) for ent in doc.ents]
 
 # === Load and Read the Text File ===
 file_path = "MUFATE_SACCO_CLEANED_RESTRUCTURED.txt"
@@ -17,8 +25,8 @@ except FileNotFoundError:
     st.error(f"File not found: {file_path}")
     st.stop()
 
-# === Step 1: Split raw text into chunks ===
-chunks = raw_text.split("\n\n")
+# Split on double newlines 
+chunks = raw_text.strip().split("\n\n")
 
 # === Step 2: Clean chunks — combine short headings with the following paragraph ===
 cleaned_chunks = []
@@ -60,17 +68,16 @@ def get_most_relevant_chunk(query):
     query_tfidf = vectorizer.transform([query])
     similarity_scores = cosine_similarity(query_tfidf, tfidf_matrix)[0]
 
-    # Boost score if query phrase is in the title of a chunk
     for i, chunk in enumerate(chunks):
-        title_line = chunk.split('\n')[0]  # get heading/title only
-        if query.lower().strip(':') in title_line.lower():
-            similarity_scores[i] += 0.5  # significant boost
+        title_line = chunk.split("\n")[0]
+        if query.lower() in title_line.lower():
+            similarity_scores[i] += 0.5
+        if "contact us" in title_line.lower():
+            if "contact" in query.lower() or "call" in query.lower() or "reach" in query.lower():
+                return chunk  
 
-    # Pick the best scoring chunk
     top_index = similarity_scores.argmax()
-    top_score = similarity_scores[top_index]
-
-    if top_score > 0.1:
+    if similarity_scores[top_index] > 0.1:
         return chunks[top_index]
     else:
         return "Sorry, I couldn't find anything relevant. Try rephrasing your question."
@@ -88,8 +95,14 @@ def main():
     user_input = st.text_input("You:")
 
     if st.button("Submit") and user_input:
+        entities = extract_entities(user_input)
         response = chatbot(user_input)
         st.markdown(f"**Chatbot:** {response}")
+
+        if entities:
+            st.markdown("\n**🔍 Detected Entities:**")
+            for entity in entities:
+                st.write(f"- {entity[0]} ({entity[1]})")
 
 # === Run the App ===
 if __name__ == "__main__":
